@@ -39,7 +39,7 @@
  *
  *@c*/
 
-#define HASH_DIM 0x10
+#define HASH_DIM (1 << 6)
 #define HASH_SIZE (HASH_DIM*HASH_DIM*HASH_DIM)
 #define MAX_NBR_BINS 27
 

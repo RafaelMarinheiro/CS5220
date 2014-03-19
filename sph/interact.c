@@ -61,6 +61,7 @@ void compute_density(sim_state_t* s, sim_param_t* params)
 #ifdef USE_BUCKETING
     /* BEGIN TASK */
     static unsigned buckets[MAX_NBR_BINS];
+    
     for (int i = 0; i < n; ++i) {
         particle_t* pi = p+i;
         pi->rho += 4 * s->mass / M_PI / h3;

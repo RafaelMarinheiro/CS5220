@@ -153,6 +153,7 @@ int main(int argc, char** argv)
     int npframe = params.npframe;
     float dt    = params.dt;
     int n       = state->n;
+    printf("N = %d\n", n);
 
     double t_start = omp_get_wtime();
     //write_header(fp, n);

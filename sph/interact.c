@@ -61,23 +61,30 @@ void compute_density(sim_state_t* s, sim_param_t* params)
 #ifdef USE_BUCKETING
     /* BEGIN TASK */
     static unsigned buckets[MAX_NBR_BINS];
-    
+
+    #pragma omp parallel for private(buckets)
     for (int i = 0; i < n; ++i) {
         particle_t* pi = p+i;
         pi->rho += 4 * s->mass / M_PI / h3;
-        
+        float ki = 0;
         int number_buckets = particle_neighborhood(buckets, pi, h);
         for(int bid = 0; bid < number_buckets; bid++){
             particle_t* pj = hash[buckets[bid]];
             while(pj != NULL){
                 int j = (pj - pi);
                 j = j+i;
-                if(i < j){
-                    update_density(pi, pj, h2, C);
+                if(i != j){
+                    float r2 = vec3_dist2(pi->x, pj->x);
+                    float z  = h2-r2;
+                    if (z > 0) {
+                        float rho_ij = C*z*z*z;
+                        ki += rho_ij;
+                    }
                 }
                 pj = pj->next;
             }
         }
+        pi->rho += ki;
     }
     /* END TASK */
 #else
@@ -171,20 +178,44 @@ void compute_accel(sim_state_t* state, sim_param_t* params)
 #ifdef USE_BUCKETING
     /* BEGIN TASK */
     static unsigned buckets[MAX_NBR_BINS];
+
+    #pragma omp parallel for private(buckets) 
     for (int i = 0; i < n; ++i) {
         particle_t* pi = p+i;
         int number_buckets = particle_neighborhood(buckets, pi, h);
+        float acc[3];
+        vec3_set(acc, 0, 0, 0);
         for(int bid = 0; bid < number_buckets; bid++){
             particle_t* pj = hash[buckets[bid]];
             while(pj != NULL){
                 int j = (pj - pi);
                 j = j+i;
-                if(i < j){
-                    update_forces(pi, pj, h2, rho0, C0, Cp, Cv);
+                if(i != j){
+                    float dx[3];
+                    vec3_diff(dx, pi->x, pj->x);
+                    float r2 = vec3_len2(dx);
+                    if (r2 < h2) {
+                        const float rhoi = pi->rho;
+                        const float rhoj = pj->rho;
+                        float q = sqrt(r2/h2);
+                        float u = 1-q;
+                        float w0 = C0 * u/rhoi/rhoj;
+                        float wp = w0 * Cp * (rhoi+rhoj-2*rho0) * u/q;
+                        float wv = w0 * Cv;
+                        float dv[3];
+                        vec3_diff(dv, pi->v, pj->v);
+
+                        // Equal and opposite pressure forces
+                        vec3_saxpy(acc,  wp, dx);
+                        
+                        // Equal and opposite viscosity forces
+                        vec3_saxpy(acc,  wv, dv);
+                    }
                 }
                 pj = pj->next;
             }
         }
+        vec3_saxpy(pi->a, 1, acc);
     }
     /* END TASK */
 #else

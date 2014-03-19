@@ -2,4 +2,4 @@
 CC       = gcc-4.8
 CFLAGS   = -std=gnu99 -Wall -g -fopenmp
 OPTFLAGS = -O3 -D USE_BUCKETING
-LIBS     = -lm -llua
+LIBS     = -lm -llua -lgomp

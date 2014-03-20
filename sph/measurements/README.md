@@ -16,6 +16,16 @@ alpha = 1.46423823204e-05
 beta = 0.00397931763094
 gamma = 0.000184113355164
 
+Notice that these value are compatible with our profiling:
+
+Notice that the method
+	
+	void hash_particles(sim_state_t *, float)
+
+is not parallelized. It is consuming ~7% of the total time. When p = 1, we have:
+
+alpha/(alpha + gamma) ~= 7%
+
 Just run
 
 	python plotter.py

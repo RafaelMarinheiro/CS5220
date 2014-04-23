@@ -62,7 +62,7 @@ void compute_density(sim_state_t* s, sim_param_t* params)
     /* BEGIN TASK */
     static unsigned buckets[MAX_NBR_BINS];
 
-    #pragma omp parallel for private(buckets)
+    //#pragma omp parallel for private(buckets)
     for (int i = 0; i < n; ++i) {
         particle_t* pi = p+i;
         pi->rho += 4 * s->mass / M_PI / h3;
@@ -179,7 +179,7 @@ void compute_accel(sim_state_t* state, sim_param_t* params)
     /* BEGIN TASK */
     static unsigned buckets[MAX_NBR_BINS];
 
-    #pragma omp parallel for private(buckets) 
+    //#pragma omp parallel for private(buckets) 
     for (int i = 0; i < n; ++i) {
         particle_t* pi = p+i;
         int number_buckets = particle_neighborhood(buckets, pi, h);

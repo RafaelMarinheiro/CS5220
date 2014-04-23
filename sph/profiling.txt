@@ -1,0 +1,25 @@
+---------------------------------------------------------------------------------------
+%Time    Exclusive    Inclusive       #Call      #Subrs  Inclusive Name
+              msec   total msec                          usec/call 
+---------------------------------------------------------------------------------------
+100.0           43     1:11.959           1       29807   71959549 int main(int, char **) C 
+ 98.2       33,943     1:10.643        9901       67122       7135 void compute_accel(sim_state_t *, sim_param_t *) C 
+ 43.1       30,958       31,002        9902       52681       3131 void compute_density(sim_state_t *, sim_param_t *) C 
+  7.9        5,657        5,667        9902       35781        572 void hash_particles(sim_state_t *, float) C 
+  0.9          325          641        9900        9900         65 void leapfrog_step(sim_state_t *, double) C 
+  0.6          463          463         100           0       4639 void write_frame_data(FILE *, int, sim_state_t *, int *) C 
+  0.4          293          316        9901      100001         32 void reflect_bc(sim_state_t *) C 
+  0.2          132          132        9901           0         13 void check_state(sim_state_t *) C 
+  0.1           63           83      100001       64220          1 unsigned int particle_neighborhood(unsigned int *, particle_t *, float) C [THROTTLED]
+  0.0         0.26           32           1           2      32741 sim_state_t *init_particles(sim_param_t *) C 
+  0.0           29           29      100001           0          0 unsigned int particle_bucket(particle_t *, float) C [THROTTLED]
+  0.0           11           23           1       35153      23389 sim_state_t *place_particles(sim_param_t *, domain_fun_t) C 
+  0.0           23           23      100001           0          0 void damp_reflect(int, float, float *, float *, float *) C [THROTTLED]
+  0.0            9            9       35152           0          0 int box_indicator(float, float, float) C 
+  0.0        0.344            9           1           2       9092 void normalize_mass(sim_state_t *, sim_param_t *) C 
+  0.0            2            2           1           0       2504 sim_state_t *alloc_state(int) C 
+  0.0        0.313        0.313           1           0        313 void free_state(sim_state_t *) C 
+  0.0        0.197        0.228           1           1        228 void leapfrog_start(sim_state_t *, double) C 
+  0.0        0.163        0.169           1           1        169 int get_params(int, char **, sim_param_t *) C 
+  0.0        0.098        0.098           1           0         98 void write_header(FILE *, int, int, float) C 
+  0.0        0.006        0.006           1           0          6 void default_params(sim_param_t *) C 

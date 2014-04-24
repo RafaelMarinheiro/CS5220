@@ -126,8 +126,33 @@ end
 #
 # [3]: http://dx.doi.org/10.1006/inco.1996.2612
 
-function simplex_nnls_eg(AtA, Atb, x=[], maxiter=500)
+# function simplex_nnls_eg{T<:Real} x :: Vector{T} = [], maxiter=500)
+@everywhere function simplex_nnls_eg{T<:Real}(AtA :: Array{T,2}, Atb :: Vector{T}, x=[], maxiter=500)
   # BEGIN TASK
+    learning = 1000
+    AtAt = AtA'
+    k = size(Atb)[1]
+    if isempty(x)
+      x = ones(T, k)
+    end
+    x = max(x, 0)
+    x = x/sum(x)
+    tol = 1e-6;
+    p = 2*AtAt*(AtA*x-Atb)
+    iterations = maxiter
+    for its = 1:maxiter
+      x = x.*exp(-learning*p)
+      x = x/norm(x,1)
+      p = 2*AtAt*(AtA*x-Atb)
+      pmin = minimum(p)
+      delta = dot(p - pmin, x)
+      if delta < tol
+        iterations = its
+        break
+      end
+      learning = 0.99*learning
+    end
+    x, iterations
   # END TASK
 end
 
@@ -293,40 +318,62 @@ end
 # To compute this by Bayes rule, we need the overall probability
 # of word $i$, which we store as $s$.
 
+@everywhere function parallel_compute_A(I, AtA :: Array{Float32,2}, AtB :: Array{Float32,2}, s)
+  result = zeros(Float32, length(I[1]), length(I[2]))
+  println(I)
+  for i=I[2]
+    idx = i-I[2][1]+1
+    Atb = AtB[:,i]
+    (ci, maxiter) = simplex_nnls_eg(AtA, Atb)
+    result[:,idx] = ci .* s[i]
+  end
+  result
+end
+
+
 function compute_A(Qn, s, p)
   Tt = Qn[p,:]
   AtA = convert(Array{Float32,2}, full(Tt*Tt'))
   AtB = convert(Array{Float32,2}, full(Tt*(Qn')))
   (nt,nw) = size(Tt)
-  C = zeros(Float32, (nw,nt))
-  maxerr1 = 0.0
-  maxerr2 = 0.0
-  alliter = 0
-  for i = 1:nw
-    Atb = reshape(AtB[:,i], (nt,))
-
-    # Version 1: Exponentiated gradient
-    #(ci, maxiter) = simplex_nnls_eg(AtA,Atb)
-    #alliter = alliter + maxiter
-
-    # Version 2: Warm-started active-set iteration
-    ci = proj_simplex(AtA\Atb)
-    (ci, maxiter) = simplex_nnls_as(AtA, Atb, ci)
-
-    alliter = alliter + maxiter
-    C[i,:] = ci' .* s[i]
-
-    # Check normalization error
-    maxerr1 = max(maxerr1, abs(sum(ci)-1))
+  
+  if nprocs() > 1
+    C_distributed = DArray(I->parallel_compute_A(I, AtA, AtB, s), (nt, nw), [2:nprocs()], [1, nprocs()-1])
+    C = convert(Array{Float32,2}, C_distributed)'
+  else
+    C = zeros(Float32, (nt,nw))
+    maxerr1 = 0.0
+    maxerr2 = 0.0
+    alliter = 0
     
-    # Check error measure used in EG convergence
-    r = AtA*ci-Atb
-    phi = 2*(r.-minimum(r))'*ci
-    maxerr2 = max(maxerr2, phi[1])
+    for i = 1:nw
+      Atb = reshape(AtB[:,i], (nt,))
 
+      # Version 1: Exponentiated gradient
+      # ci = proj_simplex(AtA\Atb)
+      
+      (ci, maxiter) = simplex_nnls_eg(AtA,Atb)
+
+      # Version 2: Warm-started active-set iteration
+      # ci = proj_simplex(AtA\Atb)
+      # (ci, maxiter) = simplex_nnls_as(AtA, Atb, ci)
+
+      alliter = alliter + maxiter
+      C[:,i] = ci .* s[i]
+
+      # Check normalization error
+      maxerr1 = max(maxerr1, abs(sum(ci)-1))
+      
+      # Check error measure used in EG convergence
+      r = AtA*ci-Atb
+      phi = 2*(r.-minimum(r))'*ci
+      maxerr2 = max(maxerr2, phi[1])
+
+    end
+    println("Max error ", maxerr1, " ", maxerr2)
+    println("Total iterations: ", alliter)
+    C = C'
   end
-  println("Max error ", maxerr1, " ", maxerr2)
-  println("Total iterations: ", alliter)
   sc = reshape(sum(C,1),nt)
   scale(C,1./sc)
 end

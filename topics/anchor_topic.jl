@@ -137,7 +137,7 @@ end
     end
     x = max(x, 0)
     x = x/sum(x)
-    tol = 1e-6;
+    tol = 1e-5;
     p = 2*AtAt*(AtA*x-Atb)
     iterations = maxiter
     for its = 1:maxiter

@@ -344,7 +344,7 @@ function compute_A(Qn, s, p)
     C_distributed = DArray(I->parallel_compute_A(I, AtA, AtB, s), (nt, nw), [2:nprocs()], [1, nprocs()-1])
     C = convert(Array{Float32,2}, C_distributed)'
   else
-    C = zeros(Float32, (nt,nw))
+    C = zeros(Float32, (nw,nt))
     maxerr1 = 0.0
     maxerr2 = 0.0
     alliter = 0
@@ -362,7 +362,8 @@ function compute_A(Qn, s, p)
       # (ci, maxiter) = simplex_nnls_as(AtA, Atb, ci)
 
       alliter = alliter + maxiter
-      C[:,i] = ci .* s[i]
+      # C[:,i] = ci .* s[i]
+      C[i,:] = ci' .* s[i]
 
       # Check normalization error
       maxerr1 = max(maxerr1, abs(sum(ci)-1))
@@ -375,7 +376,7 @@ function compute_A(Qn, s, p)
     end
     println("Max error ", maxerr1, " ", maxerr2)
     println("Total iterations: ", alliter)
-    C = C'
+    # C = C'
   end
   sc = reshape(sum(C,1),nt)
   scale(C,1./sc)

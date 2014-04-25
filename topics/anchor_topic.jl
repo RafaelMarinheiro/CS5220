@@ -129,8 +129,7 @@ end
 # function simplex_nnls_eg{T<:Real} x :: Vector{T} = [], maxiter=500)
 @everywhere function simplex_nnls_eg{T<:Real}(AtA :: Array{T,2}, Atb :: Vector{T}, x=[], maxiter=500)
   # BEGIN TASK
-    learning = 1000
-    AtAt = AtA'
+    learning = 1000.0
     k = size(Atb)[1]
     if isempty(x)
       x = ones(T, k)
@@ -138,12 +137,13 @@ end
     x = max(x, 0)
     x = x/sum(x)
     tol = 1e-5;
-    p = 2*AtAt*(AtA*x-Atb)
+    p = 2*(AtA*x-Atb)
     iterations = maxiter
     for its = 1:maxiter
       x = x.*exp(-learning*p)
       x = x/norm(x,1)
-      p = 2*AtAt*(AtA*x-Atb)
+      x = min(x, 1)
+      p = 2*(AtA*x-Atb)
       pmin = minimum(p)
       delta = dot(p - pmin, x)
       if delta < tol
@@ -320,7 +320,6 @@ end
 
 @everywhere function parallel_compute_A(I, AtA :: Array{Float32,2}, AtB :: Array{Float32,2}, s)
   result = zeros(Float32, length(I[1]), length(I[2]))
-  println(I)
   for i=I[2]
     idx = i-I[2][1]+1
     Atb = AtB[:,i]

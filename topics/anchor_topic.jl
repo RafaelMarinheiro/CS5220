@@ -140,9 +140,13 @@ end
     p = 2*(AtA*x-Atb)
     iterations = maxiter
     for its = 1:maxiter
-      x = x.*exp(-learning*p)
-      x = x/norm(x,1)
-      x = min(x, 1)
+      for i=1:k
+        x[i] = x[i]*exp(-learning*p[i])
+      end
+      normX = norm(x,1)
+      for i=1:k
+        x[i] = min(x[i]/normX, 1)
+      end
       p = 2*(AtA*x-Atb)
       pmin = minimum(p)
       delta = dot(p - pmin, x)

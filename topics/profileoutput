@@ -1,0 +1,239 @@
+1     abstractarray.jl; checkbounds; line: 65
+1     abstractarray.jl; copy!; line: 149
+1     abstractarray.jl; stride; line: 30
+1     array.jl; findmax; line: 1125
+10    array.jl; getindex; line: 237
+1     array.jl; setindex!; line: 298
+1     mmap.jl; munmap; line: 60
+22    ordering.jl; lt; line: 52
+5     reduce.jl; minimum_rgn; line: 417
+10    reduce.jl; minimum_rgn; line: 418
+4     reduce.jl; minimum_rgn; line: 421
+          62362 loading.jl; include_from_node1; line: 128
+                62362 profile.jl; anonymous; line: 14
+                   18    ...chor_topic.jl; mine_topics; line: 403
+                     16 string.jl; println; line: 5
+                        11 string.jl; print; line: 4
+                                    +12 4 ...ence.jl; ...ract_call_gf; line: 739
+                   4     ...chor_topic.jl; mine_topics; line: 405
+                    1 reducedim.jl; _sum!; line: 106
+                    3 reducedim.jl; _sum!; line: 295
+                   11    ...chor_topic.jl; mine_topics; line: 407
+                    11 linalg/matmul.jl; scale!; line: 23
+                   66    ...chor_topic.jl; mine_topics; line: 408
+                     40 string.jl; println; line: 5
+                        33 string.jl; print; line: 4
+                   2188  ...chor_topic.jl; mine_topics; line: 411
+                    22   ...chor_topic.jl; choose_anchors_partial; line: 77
+                     14 array.jl; .^; line: 706
+                       4 reducedim.jl; sum; line: 146
+                        3 reducedim.jl; _sum!; line: 100
+                        1 reducedim.jl; _sum!; line: 295
+                    6    ...chor_topic.jl; choose_anchors_partial; line: 83
+                    190  ...chor_topic.jl; choose_anchors_partial; line: 84
+                     21  ...dimensional.jl; getindex; line: 50
+                      16 ...imensional.jl; _getindex!; line: 37
+                      5  ...imensional.jl; _getindex!; line: 295
+                      26  linalg/matmul.jl; *; line: 68
+                       25 linalg/matmul.jl; generic_matvecmul!; line: 349
+                      21  linalg/matmul.jl; Ac_mul_B; line: 102
+                       18 linalg/matmul.jl; generic_matvecmul!; line: 339
+                       2  linalg/matmul.jl; generic_matvecmul!; line: 341
+                       3   ...imensional.jl; _getindex; line: 45
+                        3 ...imensional.jl; _getindex!; line: 37
+                    2    ...chor_topic.jl; choose_anchors_partial; line: 85
+                     2 linalg/generic.jl; vecnorm; line: 134
+                      2 linalg/dense.jl; vecnorm2; line: 22
+                    1931 ...chor_topic.jl; choose_anchors_partial; line: 87
+                     1    array.jl; .^; line: 706
+                     3    array.jl; transpose; line: 1280
+                     1916 linalg/matmul.jl; *; line: 117
+                      2    array.jl; fill!; line: 143
+                      1    linalg/matmul.jl; generic_matmatmul!; line: 403
+                      7    linalg/matmul.jl; generic_matmatmul!; line: 405
+                      3    linalg/matmul.jl; generic_matmatmul!; line: 408
+                       3 array.jl; fill!; line: 147
+                      2    linalg/matmul.jl; generic_matmatmul!; line: 409
+                      49   linalg/matmul.jl; generic_matmatmul!; line: 412
+                       49 linalg/matmul.jl; copy_transpose!; line: 303
+                        2  abstractarray.jl; checkbounds; line: 65
+                        3  abstractarray.jl; copy_transpose!; line: 224
+                        3  abstractarray.jl; copy_transpose!; line: 227
+                         1 abstractarray.jl; checkbounds; line: 65
+                        4  abstractarray.jl; copy_transpose!; line: 228
+                         2 abstractarray.jl; checkbounds; line: 65
+                        5  abstractarray.jl; copy_transpose!; line: 230
+                        26 abstractarray.jl; copy_transpose!; line: 233
+                        6  abstractarray.jl; copy_transpose!; line: 236
+                      1577 linalg/matmul.jl; generic_matmatmul!; line: 413
+                       1575 ...lg/matmul.jl; copy!; line: 294
+                        4    ...ractarray.jl; checkbounds; line: 65
+                        2    ...ractarray.jl; copy!; line: 209
+                        2    ...ractarray.jl; copy!; line: 210
+                         2 abstractarray.jl; checkbounds; line: 65
+                        5    ...ractarray.jl; copy!; line: 212
+                        1    ...ractarray.jl; copy!; line: 214
+                        1364 ...ractarray.jl; copy!; line: 215
+                        108  ...ractarray.jl; copy!; line: 216
+                        87   ...ractarray.jl; copy!; line: 218
+                        1    ...ractarray.jl; copy!; line: 220
+                      4    linalg/matmul.jl; generic_matmatmul!; line: 415
+                      2    linalg/matmul.jl; generic_matmatmul!; line: 416
+                      173  linalg/matmul.jl; generic_matmatmul!; line: 420
+                      95   linalg/matmul.jl; generic_matmatmul!; line: 422
+                      1    linalg/matmul.jl; generic_matmatmul!; line: 426
+                       1 abstractarray.jl; copy!; line: 206
+                     1    ...imensional.jl; getindex; line: 50
+                      1 ...dimensional.jl; _getindex!; line: 37
+                      1 array.jl; -; line: 712
+                      2 array.jl; -; line: 714
+                    2    array.jl; transpose!; line: 1258
+                    32   array.jl; transpose!; line: 1263
+                    3    array.jl; transpose!; line: 1265
+                >>>>>>>>>   56319 ...chor_topic.jl; mine_topics; line: 414
+                    38    ...chor_topic.jl; compute_A; line: 338
+                     38 ...dimensional.jl; getindex; line: 50
+                      21 ...imensional.jl; _getindex!; line: 37
+                      17 ...imensional.jl; _getindex!; line: 293
+                    3     ...chor_topic.jl; compute_A; line: 339
+                     3 linalg/matmul.jl; A_mul_Bt!; line: 143
+                      3 linalg/matmul.jl; syrk_wrapper!; line: 237
+                       2 linalg/blas.jl; syrk!; line: 597
+                       1 linalg/matmul.jl; copytri!; line: 193
+                    5     ...chor_topic.jl; compute_A; line: 353
+                     4 array.jl; reshape; line: 91
+                     1 ...idimensional.jl; getindex; line: 50
+                      1 ...dimensional.jl; _getindex!; line: 37
+               >>>>>>>>     56208 ...chor_topic.jl; compute_A; line: 358
+                     1     ...chor_topic.jl; simplex_nnls_eg; line: 132
+                     8     ...chor_topic.jl; simplex_nnls_eg; line: 135
+                      8 array.jl; fill!; line: 143
+                     12    ...chor_topic.jl; simplex_nnls_eg; line: 137
+                        2  operators.jl; max; line: 320
+                     8     ...chor_topic.jl; simplex_nnls_eg; line: 138
+                        1 abstractarray.jl; /; line: 351
+                         1 array.jl; ./; line: 751
+                     2     ...chor_topic.jl; simplex_nnls_eg; line: 140
+                      2 linalg/matmul.jl; *; line: 68
+                       2 linalg/matmul.jl; gemv!; line: 219
+                        2 linalg/blas.jl; gemv!; line: 261
+                     248   ...chor_topic.jl; simplex_nnls_eg; line: 144
+                     66    ...chor_topic.jl; simplex_nnls_eg; line: 146
+                      62 ...lg/generic.jl; vecnorm; line: 134
+                       62 linalg/dense.jl; vecnorm1; line: 21
+                         2  linalg/blas.jl; asum; line: 189
+                     43    ...chor_topic.jl; simplex_nnls_eg; line: 148
+                     278   ...chor_topic.jl; simplex_nnls_eg; line: 150
+                      36  array.jl; -; line: 712
+                      8   array.jl; -; line: 714
+                      15  array.jl; .*; line: 742
+                      6   array.jl; .*; line: 744
+                      9   linalg/matmul.jl; *; line: 67
+                      202 linalg/matmul.jl; *; line: 68
+                       2   abstractarray.jl; stride; line: 30
+                       1   linalg/matmul.jl; gemv!; line: 207
+                       1   linalg/matmul.jl; gemv!; line: 218
+                       165 linalg/matmul.jl; gemv!; line: 219
+                        2   ...ractarray.jl; stride; line: 30
+                        161 linalg/blas.jl; gemv!; line: 261
+                        1   linalg/blas.jl; gemv!; line: 268
+                     3     ...chor_topic.jl; simplex_nnls_eg; line: 151
+         >>>>>>>>>>>>>>>>            55521 ...chor_topic.jl; simplex_nnls_eg; line: 152
+                      1     array.jl; .-; line: 749
+>>>>>>>>>>>>>>                      55452 deprecated.jl; -; line: 26
+                         61    util.jl; warn; line: 184
+                           2  string.jl; chomp; line: 1397
+                         90    util.jl; warn; line: 189
+                            1  dict.jl; ht_keyindex; line: 441
+                            54 set.jl; in; line: 16
+                             8  dict.jl; ht_keyindex; line: 441
+                             25 dict.jl; ht_keyindex; line: 444
+                             21 dict.jl; ht_keyindex; line: 451
+                               6  operators.jl; isequal; line: 13
+                         44    util.jl; warn; line: 190
+                         11    util.jl; warn; line: 192
+                           5 util.jl; with_output_color; line: 158
+                         95    util.jl; warn; line: 194
+                            32 replutil.jl; show_backtrace; line: 148
+                             32 replutil.jl; show_backtrace; line: 149
+                              3  replutil.jl; show_backtrace; line: 171
+                              29 replutil.jl; show_backtrace; line: 173
+                                 2  replutil.jl; show_trace_entry; line: 131
+                                  2 string.jl; print; line: 4
+                                     1 show.jl; print; line: 6
+                                      1 stream.jl; write; line: 751
+                                 2  replutil.jl; show_trace_entry; line: 134
+                                  2 string.jl; print; line: 4
+                                    +48 20    ...ce.jl; ...t_call_gf; line: 739
+                                    +62 20 ...nce.jl; ...act_call_gf; line: 739
+                      28    deprecated.jl; -; line: 28
+                       25 array.jl; .-; line: 749
+                       3  array.jl; .-; line: 751
+                      2     linalg/blas.jl; dot; line: 142
+                      2     linalg/blas.jl; dot; line: 143
+                      5     linalg/blas.jl; dot; line: 144
+                     4     ...chor_topic.jl; simplex_nnls_eg; line: 153
+                     1     ...chor_topic.jl; simplex_nnls_eg; line: 157
+                     2     array.jl; -; line: 712
+                     2     array.jl; .*; line: 742
+                     1     linalg/blas.jl; dot; line: 142
+                    19    ...chor_topic.jl; compute_A; line: 366
+                     1  abstractarray.jl; checkbounds; line: 62
+                     2  array.jl; transpose; line: 1280
+                     1  ...imensional.jl; setindex!; line: 61
+                      1 abstractarray.jl; checkbounds; line: 65
+                     13 ...imensional.jl; setindex!; line: 76
+                    9     ...chor_topic.jl; compute_A; line: 372
+                     1 array.jl; -; line: 714
+                     7 linalg/matmul.jl; *; line: 68
+                      1 abstractarray.jl; stride; line: 30
+                      6 linalg/matmul.jl; gemv!; line: 219
+                       6 linalg/blas.jl; gemv!; line: 261
+                    1     ...chor_topic.jl; compute_A; line: 373
+                     1 linalg/matmul.jl; *; line: 68
+                      1 linalg/matmul.jl; gemv!; line: 219
+                       1 linalg/blas.jl; gemv!; line: 261
+                    36    ...chor_topic.jl; compute_A; line: 382
+                      1  linalg/matmul.jl; scale; line: 27
+                       1 linalg/matmul.jl; scale!; line: 13
+                   146   ...chor_topic.jl; mine_topics; line: 420
+                    1   array.jl; -; line: 656
+                      17  sort.jl; sort!; line: 441
+                       2  sort.jl; fpsort!; line: 429
+                       15 sort.jl; fpsort!; line: 435
+                        1  sort.jl; sort!; line: 275
+                        2  sort.jl; sort!; line: 276
+                        12 sort.jl; sort!; line: 281
+                         1  sort.jl; sort!; line: 276
+                         11 sort.jl; sort!; line: 281
+                          2 sort.jl; sort!; line: 259
+                           1 sort.jl; sort!; line: 245
+                          1 sort.jl; sort!; line: 275
+                          7 sort.jl; sort!; line: 281
+                           1 sort.jl; sort!; line: 259
+                            1 sort.jl; sort!; line: 246
+                           1 sort.jl; sort!; line: 275
+                           1 sort.jl; sort!; line: 276
+                           4 sort.jl; sort!; line: 281
+                            2 sort.jl; sort!; line: 259
+                             1 ordering.jl; lt; line: 52
+                            2 sort.jl; sort!; line: 281
+                             1 sort.jl; sort!; line: 259
+                              1 sort.jl; sort!; line: 252
+                             1 sort.jl; sort!; line: 281
+                              1 sort.jl; sort!; line: 259
+                               1 sort.jl; sort!; line: 246
+                                    +19 7    ...ce.jl; ...ct_call_gf; line: 739
+                                    +31 25   ...ce.jl; ...ct_call_gf; line: 739
+                                    +36 92   ...ce.jl; ...ct_call_gf; line: 739
+                                    +55 2  ...nce.jl; anonymous; line: 130
+                                    +55 1  ...nce.jl; anonymous; line: 224
+                                    +74 35 ...nce.jl; ...act_call_gf; line: 739
+                                   +105 1 ...ence.jl; ...ract_call_gf; line: 689
+                                    +89 1 ...ence.jl; ...ract_call_gf; line: 739
+                                    +47 1    ...ce.jl; ...ct_call_gf; line: 739
+                                    +53 4    ...ce.jl; ...ct_call_gf; line: 739
+                                    +58 5    ...ce.jl; ...ct_call_gf; line: 739
+                                    +59 2    mmap.jl; anonymous; line: 110
+                                    +87 11  ...nce.jl; ...ct_call_gf; line: 739
+

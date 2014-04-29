@@ -1,0 +1,13 @@
+-- Reading files
+elapsed time: 17.357001183 seconds
+-- Forming Q
+elapsed time: 73.577541364 seconds
+-- Number of Processors: 7
+-- Compute row scaling
+elapsed time: 42.473548328 seconds
+-- Timing anchor words with partial fact
+elapsed time: 176.629659142 seconds
+-- Compute intensities
+elapsed time: 70.968585548 seconds
+-- Find top words per topic
+elapsed time: 0.946227041 seconds

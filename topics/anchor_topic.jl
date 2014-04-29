@@ -394,6 +394,7 @@ end
 # top word selection `TW`.
 
 function mine_topics(Q, ntopic=100, nword=20)
+  println("-- Number of Processors: ", nprocs())
 
   println("-- Compute row scaling")
   tic()

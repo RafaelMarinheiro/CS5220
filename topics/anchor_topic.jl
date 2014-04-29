@@ -140,16 +140,13 @@ end
     p = 2*(AtA*x-Atb)
     iterations = maxiter
     for its = 1:maxiter
-      for i=1:k
-        x[i] = x[i]*exp(-learning*p[i])
-      end
+      x = x.*exp(-learning*p)
       normX = norm(x,1)
-      for i=1:k
-        x[i] = min(x[i]/normX, 1)
-      end
+      x = min(x/normX, 1)
+      
       p = 2*(AtA*x-Atb)
       pmin = minimum(p)
-      delta = dot(p - pmin, x)
+      delta = dot(p .- pmin, x)
       if delta < tol
         iterations = its
         break
@@ -344,7 +341,7 @@ function compute_A(Qn, s, p)
     C_distributed = DArray(I->parallel_compute_A(I, AtA, AtB, s), (nt, nw), [2:nprocs()], [1, nprocs()-1])
     C = convert(Array{Float32,2}, C_distributed)'
   else
-    C = zeros(Float32, (nw,nt))
+    C = zeros(Float32, (nt,nw))
     maxerr1 = 0.0
     maxerr2 = 0.0
     alliter = 0
@@ -353,8 +350,6 @@ function compute_A(Qn, s, p)
       Atb = reshape(AtB[:,i], (nt,))
 
       # Version 1: Exponentiated gradient
-      # ci = proj_simplex(AtA\Atb)
-      
       (ci, maxiter) = simplex_nnls_eg(AtA,Atb)
 
       # Version 2: Warm-started active-set iteration
@@ -362,8 +357,8 @@ function compute_A(Qn, s, p)
       # (ci, maxiter) = simplex_nnls_as(AtA, Atb, ci)
 
       alliter = alliter + maxiter
-      # C[:,i] = ci .* s[i]
-      C[i,:] = ci' .* s[i]
+      C[:,i] = ci .* s[i]
+      # C[i,:] = ci' .* s[i]
 
       # Check normalization error
       maxerr1 = max(maxerr1, abs(sum(ci)-1))
@@ -376,7 +371,7 @@ function compute_A(Qn, s, p)
     end
     println("Max error ", maxerr1, " ", maxerr2)
     println("Total iterations: ", alliter)
-    # C = C'
+    C = C'
   end
   sc = reshape(sum(C,1),nt)
   scale(C,1./sc)
